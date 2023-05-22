@@ -27,7 +27,7 @@ $(TARGET):$(OBJS)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR)
 	$(warning $@)
-	$(CC) -MMD -MP -MF $(OBJDIR)/$*.dep $(CFLAGS) $(INCOPT) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCOPT) -c $< -o $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@mkdir -p $(OBJDIR)
@@ -39,13 +39,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.s
 	$(warning $@)
 	$(CC) $(INCOPT) $(CFLAGS) -c $< -o $@
 
-DEPENDS = $(OBJS:.o=.dep)
-
-
 clean:
 	rm -rf $(OBJDIR) $(TARGET)
 
-.PHONY: clean
-
-
--include $(DEPENDS)
+.PHONY: all clean
